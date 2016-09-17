@@ -12,6 +12,7 @@ export default class TodoApp extends Component {
     }
     this.addTodo = this.addTodo.bind(this)
     this.deleteTodo = this.deleteTodo.bind(this)
+    this.toggleTodo = this.toggleTodo.bind(this)
     this.updateNewTodo = this.updateNewTodo.bind(this)
   }
   addTodo(todo) {
@@ -23,12 +24,27 @@ export default class TodoApp extends Component {
     })
   }
   deleteTodo(targetTodo) {
+    console.log(targetTodo)
     this.setState({
       todos: this.state.todos.filter((todo) => {
-        if (todo === targetTodo) {
+        if (todo.text === targetTodo) {
+          console.log('match')
           return false
         }
         return true
+      })
+    })
+  }
+  toggleTodo(targetTodo) {
+    this.setState({
+      todos: this.state.todos.map((todo) => {
+        if (todo.text === targetTodo) {
+          return {
+            text: todo.text,
+            status: (todo.status === 'active')?'done':'active'
+          }
+        }
+        return todo
       })
     })
   }
@@ -45,7 +61,10 @@ export default class TodoApp extends Component {
           newTodo={ this.state.newTodo }
           addTodo={ this.addTodo }
           updateNewTodo={ this.updateNewTodo } />
-        <TodoList todos={ this.state.todos } deleteTodo={ this.deleteTodo } />
+        <TodoList
+          todos={ this.state.todos }
+          toggleTodo={this.toggleTodo}
+          deleteTodo={ this.deleteTodo } />
       </section>
     )
   }
