@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import TodoItem from './TodoItem'
+import { connect } from 'react-redux'
+import { toggleTodo, deleteTodo } from '../actions'
 
-export default class TodoList extends Component {
+class TodoList extends Component {
   render() {
     return (
       <ul className='todo-list'>
@@ -17,3 +19,17 @@ export default class TodoList extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todos
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleTodo: todo => dispatch(toggleTodo(todo)),
+    deleteTodo: todo => dispatch(deleteTodo(todo))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)

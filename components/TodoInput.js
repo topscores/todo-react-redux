@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addTodo, updateNewTodo } from '../actions'
 
-export default class TodoInput extends Component {
+class TodoInput extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
@@ -29,3 +31,18 @@ export default class TodoInput extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    newTodo: state.newTodo
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTodo: todo => dispatch(addTodo(todo)),
+    updateNewTodo: todo => dispatch(updateNewTodo(todo))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoInput)
