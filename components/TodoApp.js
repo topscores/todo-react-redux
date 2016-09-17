@@ -22,7 +22,7 @@ export default class TodoApp extends Component {
     return (
       <section className='todoapp'>
         <h1>todos</h1>
-        <TodoInput todos={this.state.todos} />
+        <TodoInput todos={this.state.todos} addTodo={} />
         <TodoList todos={this.state.todos} />
       </section>
     )
