@@ -7,8 +7,12 @@ export default class TodoApp extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      newTodo: '',
       todos: []
     }
+    this.addTodo = this.addTodo.bind(this)
+    this.deleteTodo = this.deleteTodo.bind(this)
+    this.updateNewTodo = this.updateNewTodo.bind(this)
   }
   addTodo(todo) {
     this.setState({
@@ -18,12 +22,30 @@ export default class TodoApp extends Component {
       ]
     })
   }
+  deleteTodo(targetTodo) {
+    this.setState({
+      todos: this.state.todos.filter((todo) => {
+        if (todo === targetTodo) {
+          return false
+        }
+        return true
+      })
+    })
+  }
+  updateNewTodo(todo) {
+    this.setState({
+      newTodo: todo
+    })
+  }
   render() {
     return (
       <section className='todoapp'>
         <h1>todos</h1>
-        <TodoInput todos={this.state.todos} addTodo={} />
-        <TodoList todos={this.state.todos} />
+        <TodoInput
+          newTodo={ this.state.newTodo }
+          addTodo={ this.addTodo }
+          updateNewTodo={ this.updateNewTodo } />
+        <TodoList todos={ this.state.todos } deleteTodo={ this.deleteTodo } />
       </section>
     )
   }
